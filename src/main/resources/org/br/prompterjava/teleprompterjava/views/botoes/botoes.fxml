@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<HBox fx:id="barraControle" alignment="CENTER" spacing="18.0" styleClass="painel-vidro"
+      stylesheets="@style.css" xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.br.prompterjava.teleprompterjava.controller.BotoesController">
+
+  <padding>
+    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
+  </padding>
+
+  <StackPane>
+    <Circle fx:id="circuloPulso" fill="#10b98133" radius="25.0" visible="false"/>
+    <ToggleButton fx:id="btnPlayPause" onAction="#aoClicarPlayPause" styleClass="botao-principal-play" text="▶"/>
+  </StackPane>
+
+  <Button onAction="#aoReiniciar" styleClass="botao-fantasma">
+    <tooltip>
+      <Tooltip text="Reiniciar texto"/>
+    </tooltip>
+    <graphic>
+      <ImageView fx:id="imgIconeRestart" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+          <Image url="@../../images/refresh.png"/>
+        </image>
+      </ImageView>
+    </graphic>
+  </Button>
+
+  <Separator orientation="VERTICAL" prefHeight="24.0" styleClass="separador-customizado"/>
+
+  <HBox alignment="CENTER" spacing="8.0">
+    <Button onAction="#decrementarVelocidade" styleClass="botao-incremento" text="−"/>
+    <VBox alignment="CENTER">
+      <Label styleClass="rotulo-incremento" text="VELOCIDADE"/>
+      <Label fx:id="lblValorVelocidade" styleClass="indicador-valor" text="1.0x"/>
+    </VBox>
+    <Button onAction="#incrementarVelocidade" styleClass="botao-incremento" text="+"/>
+  </HBox>
+
+  <Separator orientation="VERTICAL" prefHeight="24.0" styleClass="separador-customizado"/>
+
+  <HBox alignment="CENTER" spacing="8.0">
+    <Button onAction="#decrementarFonte" styleClass="botao-incremento" text="A−"/>
+    <VBox alignment="CENTER">
+      <Label styleClass="rotulo-incremento" text="FONTE"/>
+      <Label fx:id="lblValorFonte" styleClass="indicador-valor" text="14"/>
+    </VBox>
+    <Button onAction="#incrementarFonte" styleClass="botao-incremento" text="A+"/>
+  </HBox>
+
+  <Button fx:id="btnFormatar" onAction="#abrirFormatacao" styleClass="botao-fantasma">
+    <graphic>
+      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+          <Image url="@../../images/editor-de-fontes.png" />
+        </image>
+      </ImageView>
+    </graphic>
+    <tooltip>
+      <Tooltip text="Formatação de Texto" />
+    </tooltip>
+  </Button>
+  <Separator orientation="VERTICAL" prefHeight="24.0" styleClass="separador-customizado"/>
+
+  <Button onAction="#settings" styleClass="botao-fantasma">
+    <graphic>
+      <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+          <Image url="@../../images/gear.png" />
+        </image>
+      </ImageView>
+    </graphic>
+  </Button>
+
+</HBox>

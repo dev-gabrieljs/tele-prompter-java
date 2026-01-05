@@ -1,0 +1,98 @@
+.texto-prompter-custom {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-text-box-border: transparent;
+}
+
+.texto-prompter-custom .content {
+    -fx-background-color: #1a1a1a;
+}
+
+.texto-prompter-custom .scroll-bar:vertical {
+    -fx-min-width: 12px !important;
+    -fx-pref-width: 12px !important;
+    -fx-max-width: 12px !important;
+    -fx-background-color: transparent !important;
+}
+
+.texto-prompter-custom .scroll-bar:vertical .decrement-button,
+.texto-prompter-custom .scroll-bar:vertical .increment-button {
+    -fx-background-color: transparent !important;
+    -fx-background-radius: 0 !important;
+    -fx-padding: 0 !important;
+    -fx-shape: "" !important;
+    -fx-min-height: 0 !important;
+    -fx-pref-height: 0 !important;
+    -fx-max-height: 0 !important;
+    -fx-opacity: 0 !important;
+}
+
+.texto-prompter-custom .scroll-bar:vertical .track {
+    -fx-background-color: transparent !important;
+    -fx-border-color: transparent !important;
+    -fx-background-insets: 0 !important;
+}
+
+.texto-prompter-custom .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.2) !important;
+    -fx-background-radius: 10 !important;
+    -fx-background-insets: 2px !important;
+}
+
+.texto-prompter-custom .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.texto-prompter-custom .scroll-bar:horizontal {
+    -fx-min-height: 0 !important;
+    -fx-pref-height: 0 !important;
+    -fx-max-height: 0 !important;
+    -fx-opacity: 0 !important;
+}
+
+.context-menu {
+    -fx-background-color: #262626;
+    -fx-border-color: #404040;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 4);
+}
+
+.context-menu .menu-item {
+    -fx-padding: 8px 15px 8px 15px;
+    -fx-background-radius: 4px;
+}
+
+.context-menu .menu-item .label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.context-menu .menu-item:focused,
+.context-menu .menu-item:hover {
+    -fx-background-color: #10b981;
+}
+
+.context-menu .menu-item:focused .label,
+.context-menu .menu-item:hover .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.context-menu .separator-menu-item .separator .line {
+    -fx-border-color: #404040;
+    -fx-border-width: 0.5px;
+}
+
+.context-menu .right-arrow {
+    -fx-background-color: #999999;
+    -fx-padding: 0.333333em 0.166667em 0.333333em 0.166667em;
+    -fx-shape: "M 0 0 L 4 4 L 0 8 Z";
+}
+
+.context-menu .menu-item:focused .right-arrow {
+    -fx-background-color: white;
+}

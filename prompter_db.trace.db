@@ -1,0 +1,6 @@
+2026-01-04 23:28:45.964776-03:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ROTEIROS" not found; SQL statement:
+INSERT INTO roteiros (titulo, conteudo) VALUES (?, ?) [42102-224]
+2026-01-04 23:36:08.625412-03:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ROTEIROS" not found; SQL statement:
+INSERT INTO roteiros (titulo, conteudo) VALUES (?, ?) [42102-224]

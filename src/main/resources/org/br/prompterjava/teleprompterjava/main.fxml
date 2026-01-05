@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #1a1a1a;"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.br.prompterjava.teleprompterjava.controller.MainController">
+
+  <children>
+    <fx:include fx:id="textoPrompter"
+                source="views/texto-prompter/texto_prompter.fxml"
+                AnchorPane.topAnchor="40.0"
+                AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.bottomAnchor="0.0" />
+
+    <HBox alignment="CENTER_RIGHT" prefHeight="40.0" minHeight="40.0" maxHeight="40.0"
+          style="-fx-background-color: #2b2b2b;"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <padding>
+        <Insets left="15.0" right="10.0"/>
+      </padding>
+      <Label text="Teleprompter Java" textFill="WHITE" style="-fx-font-weight: bold;"/>
+      <Pane HBox.hgrow="ALWAYS"/>
+      <ToggleButton fx:id="btnInvisivel" onAction="#handleInvisibilidade" style="-fx-background-color: transparent;">
+        <graphic>
+          <ImageView fx:id="imgIcone" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+              <Image url="@images/eye.png"/>
+            </image>
+          </ImageView>
+        </graphic>
+        <HBox.margin>
+          <Insets right="10.0"/>
+        </HBox.margin>
+      </ToggleButton>
+      <Button onAction="#handleMinimizar" prefWidth="35.0"
+              style="-fx-background-color: transparent; -fx-text-fill: white;" text="—"/>
+      <Button onAction="#handleFechar" prefWidth="35.0"
+              style="-fx-background-color: transparent; -fx-text-fill: #ff605c;" text="X"/>
+    </HBox>
+
+    <fx:include fx:id="botoes" source="views/botoes/botoes.fxml"
+                AnchorPane.bottomAnchor="30.0"
+                AnchorPane.leftAnchor="60.0"
+                AnchorPane.rightAnchor="60.0"/>
+
+    <Pane fx:id="resizeHandle" prefHeight="15.0" prefWidth="15.0"
+          style="-fx-background-color: #444; -fx-cursor: se-resize;"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+  </children>
+</AnchorPane>
