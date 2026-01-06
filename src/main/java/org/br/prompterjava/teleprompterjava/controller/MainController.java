@@ -43,7 +43,7 @@ public class MainController {
   public void initialize() {
     Platform.runLater(() -> {
       if (botoesController != null && textoPrompterController != null) {
-        botoesController.setAreaTexto(textoPrompterController.getTextArea());
+        botoesController.setHtmlEditor(textoPrompterController.getHtmlEditor());
       }
     });
     iconVisivel =

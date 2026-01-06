@@ -18,7 +18,7 @@ public class MainApplication extends Application {
   public void start(Stage stage) {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main.fxml"));
-      Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+      Scene scene = new Scene(fxmlLoader.load(), 900, 600);
 
       stage.initStyle(StageStyle.UNDECORATED);
       stage.setTitle(TITULO_APP);

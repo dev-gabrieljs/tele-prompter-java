@@ -1,3 +1,23 @@
+/* ==========================================================================
+   CONFIGURAÇÕES GERAIS DO HTMLEDITOR
+   ========================================================================== */
+
+.html-editor {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: transparent;
+}
+
+.html-editor .top-toolbar,
+.html-editor .bottom-toolbar {
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+    -fx-padding: 0;
+    -fx-opacity: 0;
+    -fx-managed: false;
+    visibility: hidden;
+}
+
 .texto-prompter-custom {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -9,23 +29,15 @@
     -fx-background-color: #1a1a1a;
 }
 
+/* ==========================================================================
+   SCROLLBAR DO TEXTO (VERTICAL)
+   ========================================================================== */
+
 .texto-prompter-custom .scroll-bar:vertical {
     -fx-min-width: 12px !important;
     -fx-pref-width: 12px !important;
     -fx-max-width: 12px !important;
     -fx-background-color: transparent !important;
-}
-
-.texto-prompter-custom .scroll-bar:vertical .decrement-button,
-.texto-prompter-custom .scroll-bar:vertical .increment-button {
-    -fx-background-color: transparent !important;
-    -fx-background-radius: 0 !important;
-    -fx-padding: 0 !important;
-    -fx-shape: "" !important;
-    -fx-min-height: 0 !important;
-    -fx-pref-height: 0 !important;
-    -fx-max-height: 0 !important;
-    -fx-opacity: 0 !important;
 }
 
 .texto-prompter-custom .scroll-bar:vertical .track {
@@ -44,11 +56,106 @@
     -fx-background-color: rgba(255, 255, 255, 0.4) !important;
 }
 
+.texto-prompter-custom .scroll-bar:vertical .decrement-button,
+.texto-prompter-custom .scroll-bar:vertical .increment-button {
+    -fx-min-height: 0 !important;
+    -fx-pref-height: 0 !important;
+    -fx-max-height: 0 !important;
+    -fx-opacity: 0 !important;
+}
+
 .texto-prompter-custom .scroll-bar:horizontal {
     -fx-min-height: 0 !important;
     -fx-pref-height: 0 !important;
     -fx-max-height: 0 !important;
     -fx-opacity: 0 !important;
+}
+
+/* ==========================================================================
+   PAINEL DE CONTROLES (ESTILO DARK COM CONTRASTE ALTO)
+   ========================================================================== */
+
+.painel-vidro {
+    -fx-background-color: #262626;
+    -fx-padding: 10 20;
+    -fx-border-color: #404040;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Força a cor Branca em TUDO que for texto ou ícone dentro dos botões */
+.painel-vidro .button,
+.painel-vidro .toggle-button,
+.painel-vidro .button .label,
+.painel-vidro .toggle-button .label,
+.painel-vidro .tool-bar .label {
+    -fx-text-fill: #ffffff !important;
+    -fx-fill: #ffffff !important;
+}
+
+/* Ataca especificamente os glifos (desenhos) dos botões */
+.painel-vidro .button .graphic,
+.painel-vidro .toggle-button .graphic {
+    -fx-fill: #ffffff !important;
+}
+
+.painel-vidro .button,
+.painel-vidro .toggle-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+/* Hover: fundo um pouco mais claro para destacar o botão, mantendo ícone branco */
+.painel-vidro .button:hover,
+.painel-vidro .toggle-button:hover {
+    -fx-background-color: #404040;
+}
+
+/* Botão Selecionado (Ex: Negrito ativado) */
+.painel-vidro .toggle-button:selected {
+    -fx-background-color: #10b981;
+}
+
+.painel-vidro .toggle-button:selected .graphic,
+.painel-vidro .toggle-button:selected .label {
+    -fx-fill: white !important;
+    -fx-text-fill: white !important;
+}
+
+/* ==========================================================================
+   COMBOS (FONTE E TAMANHO)
+   ========================================================================== */
+
+.painel-vidro .combo-box {
+    -fx-background-color: #333333;
+    -fx-background-radius: 4px;
+    -fx-border-color: #555555;
+    -fx-border-radius: 4px;
+}
+
+/* Cor do texto que aparece na caixa fechada */
+.painel-vidro .combo-box .label,
+.painel-vidro .combo-box .cell {
+    -fx-text-fill: #ffffff !important;
+}
+
+/* Cor da setinha do combo */
+.painel-vidro .combo-box .arrow {
+    -fx-background-color: #ffffff;
+}
+
+/* ==========================================================================
+   OUTROS ELEMENTOS
+   ========================================================================== */
+
+.botao-seta-topo {
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 0 0 12 12;
+    -fx-padding: 4 20;
+    -fx-cursor: hand;
+}
+
+.botao-seta-topo:hover {
+    -fx-background-color: #10b981;
 }
 
 .context-menu {
@@ -58,41 +165,16 @@
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
     -fx-padding: 5px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 4);
-}
-
-.context-menu .menu-item {
-    -fx-padding: 8px 15px 8px 15px;
-    -fx-background-radius: 4px;
 }
 
 .context-menu .menu-item .label {
     -fx-text-fill: #e0e0e0;
-    -fx-font-family: "Segoe UI", sans-serif;
 }
 
-.context-menu .menu-item:focused,
 .context-menu .menu-item:hover {
     -fx-background-color: #10b981;
 }
 
-.context-menu .menu-item:focused .label,
 .context-menu .menu-item:hover .label {
     -fx-text-fill: white;
-    -fx-font-weight: bold;
-}
-
-.context-menu .separator-menu-item .separator .line {
-    -fx-border-color: #404040;
-    -fx-border-width: 0.5px;
-}
-
-.context-menu .right-arrow {
-    -fx-background-color: #999999;
-    -fx-padding: 0.333333em 0.166667em 0.333333em 0.166667em;
-    -fx-shape: "M 0 0 L 4 4 L 0 8 Z";
-}
-
-.context-menu .menu-item:focused .right-arrow {
-    -fx-background-color: white;
 }

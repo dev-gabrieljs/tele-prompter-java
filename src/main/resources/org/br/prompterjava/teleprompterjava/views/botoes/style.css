@@ -135,3 +135,27 @@
 .botao-fantasma:hover .image-view {
     -fx-opacity: 0.8;
 }
+
+/* Estilo para o Bloco de Código injetado no HTML */
+.bloco-codigo-teams {
+    background-color: #2f2f2f;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    color: #e0e0e0;
+}
+
+/* Ajuste para o círculo de pulso da animação */
+#circuloPulso {
+    -fx-mouse-transparent: true; /* Permite clicar no botão através do círculo */
+}
+
+/* Melhoria no botão principal de Play */
+.botao-principal-play {
+    -fx-background-color: #10b981;
+    -fx-background-radius: 50; /* Deixa redondo */
+    -fx-text-fill: #1a1a1a;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, #10b98166, 10, 0, 0, 0);
+}

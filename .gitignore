@@ -36,3 +36,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+prompter_db.mv.db
+prompter_db.trace.db
