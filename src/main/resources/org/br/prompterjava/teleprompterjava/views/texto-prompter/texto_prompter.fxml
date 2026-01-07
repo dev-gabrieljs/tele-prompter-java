@@ -1,48 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.web.HTMLEditor?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.br.prompterjava.teleprompterjava.controller.TextoPrompterController"
             stylesheets="@style.css">
 
-  <children>
-    <StackPane AnchorPane.topAnchor="0.0"
-               AnchorPane.bottomAnchor="0.0"
-               AnchorPane.leftAnchor="0.0"
-               AnchorPane.rightAnchor="0.0">
+  <StackPane AnchorPane.topAnchor="0.0"
+             AnchorPane.bottomAnchor="0.0"
+             AnchorPane.leftAnchor="0.0"
+             AnchorPane.rightAnchor="0.0">
 
-      <HTMLEditor fx:id="htmlEditor"
-                  prefHeight="600"
-                  prefWidth="800"
-                  styleClass="html-editor texto-prompter-custom"/>
+    <HTMLEditor fx:id="htmlEditor"
+                styleClass="editor-prompter"/>
 
-      <VBox fx:id="containerControles"
-            alignment="TOP_CENTER"
-            pickOnBounds="false">
+    <VBox fx:id="containerControles" alignment="TOP_CENTER" pickOnBounds="false">
+      <FlowPane fx:id="barraControle" alignment="CENTER" hgap="10" vgap="10"
+                styleClass="toolbar-topo"/>
 
-        <children>
-          <FlowPane fx:id="barraControle"
-                    alignment="CENTER"
-                    hgap="10"
-                    vgap="10"
-                    styleClass="painel-vidro">
-          </FlowPane>
-
-          <Button onAction="#toggleBarra"
-                  styleClass="botao-seta-topo">
-            <graphic>
-              <Label fx:id="lblSeta"
-                     text="▲"
-                     style="-fx-text-fill: white; -fx-font-weight: bold;"/>
-            </graphic>
-          </Button>
-        </children>
-      </VBox>
-
-    </StackPane>
-  </children>
+      <Button onAction="#toggleBarra" styleClass="btn-toggle-aba">
+        <graphic>
+          <Label fx:id="lblSeta" text="▲" styleClass="seta-label"/>
+        </graphic>
+      </Button>
+    </VBox>
+  </StackPane>
 </AnchorPane>

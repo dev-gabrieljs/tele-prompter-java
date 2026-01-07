@@ -15,7 +15,7 @@ public class WindowUtils {
     }
   }
 
-  public static void configurarModoFantasma(String title, boolean ativar) {
+  public static void modoFantasma(String title, boolean ativar) {
     HWND hwnd = CustomUser32.INSTANCE.FindWindow(null, title);
     if (hwnd == null) return;
 

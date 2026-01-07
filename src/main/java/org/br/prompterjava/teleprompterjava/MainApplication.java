@@ -13,8 +13,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 public class MainApplication extends Application {
-  private static final Logger log = Logger.getLogger(MainApplication.class.getName());
+  private static final Logger log = Logger.getLogger(org.br.prompterjava.teleprompterjava.MainApplication.class.getName());
   private static final String TITULO_APP = "Teleprompter Interativo";
 
   @Override
@@ -30,19 +31,19 @@ public class MainApplication extends Application {
       realStage.initOwner(primaryStage);
       realStage.initStyle(StageStyle.UNDECORATED);
 
-      FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(org.br.prompterjava.teleprompterjava.MainApplication.class.getResource("main.fxml"));
       Scene scene = new Scene(fxmlLoader.load(), 900, 600);
 
-      realStage.setTitle(TITULO_APP);
+      realStage.setTitle("Teleprompter Interativo");
       realStage.setScene(scene);
       realStage.show();
 
       Platform.runLater(() -> {
-        WindowUtils.aplicarProtecao(TITULO_APP, false);
+        WindowUtils.aplicarProtecao("Teleprompter Interativo", false);
       });
 
     } catch (IOException e) {
-      log.log(Level.SEVERE,"Erro ao carregar a interface: " + e.getMessage());
+      log.log(Level.SEVERE, "Erro ao carregar a interface: " + e.getMessage());
     }
   }
 }

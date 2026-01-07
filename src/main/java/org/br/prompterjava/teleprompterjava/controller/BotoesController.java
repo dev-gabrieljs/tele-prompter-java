@@ -1,10 +1,5 @@
 package org.br.prompterjava.teleprompterjava.controller;
 
-import com.sun.jna.platform.unix.X11.Window;
-import com.sun.jna.platform.win32.User32;
-import com.sun.jna.platform.win32.WinDef;
-import com.sun.jna.platform.win32.WinDef.HWND;
-import com.sun.jna.platform.win32.WinUser;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,8 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.web.HTMLEditor;
@@ -24,7 +17,6 @@ import javafx.util.Duration;
 import org.br.prompterjava.teleprompterjava.interfaces.CustomUser32;
 import org.br.prompterjava.teleprompterjava.util.WindowUtils;
 
-import java.lang.ModuleLayer.Controller;
 import java.util.logging.Logger;
 
 public class BotoesController {
@@ -209,7 +201,7 @@ public class BotoesController {
   public void alternarClickThrough() {
     Stage stage = (Stage) barraControle.getScene().getWindow();
     modoFantasma = !modoFantasma;
-    WindowUtils.configurarModoFantasma(stage.getTitle(), modoFantasma);
+    WindowUtils.modoFantasma(stage.getTitle(), modoFantasma);
 
     if (modoFantasma) {
       stage.setAlwaysOnTop(true);

@@ -1,193 +1,62 @@
-
-.painel-vidro {
-    -fx-background-color: #1e1e20;
-    -fx-background-radius: 20;
-    -fx-border-color: rgba(255, 255, 255, 0.12);
-    -fx-border-radius: 20;
-    -fx-border-width: 1;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 15, 0, 0, 8);
-}
-
-.botao-incremento {
-    -fx-background-color: rgba(255, 255, 255, 0.05);
-    -fx-background-radius: 8;
-    -fx-text-fill: white;
-    -fx-min-width: 34;
-    -fx-min-height: 34;
-    -fx-cursor: hand;
-    -fx-font-weight: bold;
-}
-
-.botao-incremento:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.12);
-    -fx-border-color: rgba(255, 255, 255, 0.2);
-    -fx-border-radius: 8;
-}
-
-.rotulo-incremento {
-    -fx-text-fill: #a1a1aa;
-    -fx-font-size: 8px;
-    -fx-font-weight: bold;
-}
-
-.indicador-valor {
-    -fx-text-fill: white;
-    -fx-font-size: 13px;
-    -fx-font-family: "JetBrains Mono", monospace;
-    -fx-font-weight: bold;
-}
-
-.botao-principal-play {
-    -fx-background-color: #10b981;
+/* Container principal - arredondado padrão */
+.barra-principal {
+    -fx-background-color: #1a1a1c;
     -fx-background-radius: 12;
-    -fx-text-fill: #000000;
-    -fx-min-width: 48;
-    -fx-min-height: 48;
-    -fx-font-size: 18px;
+    -fx-border-color: #333333;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 8, 0, 0, 2);
+}
+
+/* Botão de Play - Verde mais saturado, menos "Tailwind" */
+.btn-play {
+    -fx-background-color: #00c853;
+    -fx-background-radius: 40;
+    -fx-text-fill: white;
+    -fx-min-width: 42;
+    -fx-min-height: 42;
     -fx-cursor: hand;
 }
+.btn-play:hover { -fx-background-color: #00e676; }
 
-.botao-principal-play:hover {
-    -fx-background-color: #34d399;
-}
-
-.botao-fantasma {
+/* Botões de ícones e ajustes */
+.btn-icon, .btn-ajuste {
     -fx-background-color: transparent;
-    -fx-text-fill: #a1a1aa;
-    -fx-min-width: 40;
-    -fx-min-height: 40;
-    -fx-background-radius: 10;
+    -fx-background-radius: 6;
+    -fx-text-fill: #cccccc;
     -fx-cursor: hand;
 }
-
-.botao-fantasma:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.08);
+.btn-icon:hover, .btn-ajuste:hover {
+    -fx-background-color: #2d2d2d;
     -fx-text-fill: white;
 }
 
-.separador-customizado .line {
-    -fx-border-color: rgba(255, 255, 255, 0.08);
-}
-
-.text-area {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-focus-color: transparent;
-    -fx-text-box-border: transparent;
-}
-
-.text-area .content {
-    -fx-background-color: #1a1a1a;
-}
-
-.text-area .scroll-bar:vertical {
-    -fx-min-width: 12px !important;
-    -fx-pref-width: 12px !important;
-    -fx-max-width: 12px !important;
-    -fx-background-color: transparent !important;
-}
-
-.text-area .scroll-bar:vertical .decrement-button,
-.text-area .scroll-bar:vertical .increment-button {
-    -fx-padding: 0 !important;
-    -fx-shape: "" !important;
-    -fx-min-height: 0 !important;
-    -fx-pref-height: 0 !important;
-    -fx-max-height: 0 !important;
-}
-
-.text-area .scroll-bar:vertical .track {
-    -fx-background-color: transparent !important;
-    -fx-border-color: transparent !important;
-    -fx-background-insets: 0 !important;
-}
-
-.text-area .scroll-bar:vertical .thumb {
-    -fx-background-color: rgba(255, 255, 255, 0.2) !important;
-    -fx-background-radius: 10 !important;
-    -fx-background-insets: 2px !important;
-}
-
-.text-area .scroll-bar:vertical .thumb:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.4) !important;
-}
-
-.text-area .scroll-bar:horizontal {
-    -fx-min-height: 0 !important;
-    -fx-pref-height: 0 !important;
-    -fx-max-height: 0 !important;
-    -fx-opacity: 0 !important;
-}
-
-.botao-fantasma {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-cursor: hand;
-    -fx-padding: 5;
-}
-
-.botao-fantasma:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
-    -fx-background-radius: 5;
-    -fx-border-color: #10b981;
-}
-
-.botao-fantasma:hover .image-view {
-    -fx-opacity: 0.8;
-}
-
-.bloco-codigo-teams {
-    background-color: #2f2f2f;
-    border: 1px solid #444;
-    border-radius: 4px;
-    padding: 2px 6px;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-    color: #e0e0e0;
-}
-
-#circuloPulso {
-    -fx-mouse-transparent: true;
-}
-
-.botao-principal-play {
-    -fx-background-color: #10b981;
-    -fx-background-radius: 50;
-    -fx-text-fill: #1a1a1a;
+/* Labels de status */
+.txt-status-label {
+    -fx-text-fill: #777777;
+    -fx-font-size: 10px;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(three-pass-box, #10b98166, 10, 0, 0, 0);
+}
+.txt-valor {
+    -fx-text-fill: #efefef;
+    -fx-font-size: 14px;
+    -fx-font-family: "Consolas", "Monospaced";
 }
 
-
-.slider {
-    -fx-cursor: hand;
+.txt-pequeno {
+    -fx-text-fill: white;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
 }
 
-
-.slider .track {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
-    -fx-background-radius: 5;
-    -fx-pref-height: 6;
-}
-
-
+/* Estilização do Slider */
+.slider .track { -fx-background-color: #222; }
 .slider .thumb {
-    -fx-background-color: #10b981;
-    -fx-background-radius: 10;
-    -fx-padding: 8;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0, 0, 2);
-}
-
-.slider .thumb:hover {
-    -fx-background-color: #34d399;
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
-}
-
-.slider .colored-track {
-    -fx-background-color: #10b981;
+    -fx-background-color: #00c853;
     -fx-background-radius: 5;
 }
 
-.vbox-opacidade {
-    -fx-padding: 0 5 0 5;
+/* Classe para o botão de snippet que estava com estilo inline */
+.btn-snippet-label {
+    -fx-text-fill: #00c853;
+    -fx-font-weight: bold;
 }

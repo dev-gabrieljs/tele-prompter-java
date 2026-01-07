@@ -4,93 +4,70 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.image.*?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<HBox fx:id="barraControle" alignment="CENTER" spacing="18.0" styleClass="painel-vidro"
-      stylesheets="@style.css" xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
+<HBox fx:id="barraControle" alignment="CENTER" spacing="15.0" styleClass="barra-principal"
+      stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.br.prompterjava.teleprompterjava.controller.BotoesController">
-
   <padding>
-    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
+    <Insets bottom="10.0" left="15.0" right="15.0" top="10.0"/>
   </padding>
 
   <StackPane>
-    <Circle fx:id="circuloPulso" fill="#10b98133" radius="25.0" visible="false"/>
-    <ToggleButton fx:id="btnPlayPause" onAction="#aoClicarPlayPause" styleClass="botao-principal-play" text="▶"/>
+    <Circle fx:id="circuloPulso" fill="#10b98133" radius="22.0" visible="false" mouseTransparent="true"/>
+    <ToggleButton fx:id="btnPlayPause" onAction="#aoClicarPlayPause" styleClass="btn-play" text="▶"/>
   </StackPane>
 
-  <Button onAction="#aoReiniciar" styleClass="botao-fantasma">
-    <tooltip>
-      <Tooltip text="Reiniciar texto"/>
-    </tooltip>
+  <Button onAction="#aoReiniciar" styleClass="btn-icon">
+    <tooltip><Tooltip text="Reiniciar texto"/></tooltip>
     <graphic>
-      <ImageView fx:id="imgIconeRestart" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-          <Image url="@../../images/refresh.png"/>
-        </image>
+      <ImageView fx:id="imgIconeRestart" fitHeight="18.0" fitWidth="18.0">
+        <Image url="@../../images/refresh.png"/>
       </ImageView>
     </graphic>
   </Button>
 
-  <Separator orientation="VERTICAL" prefHeight="24.0" styleClass="separador-customizado"/>
+  <Separator orientation="VERTICAL" prefHeight="20.0" styleClass="separador"/>
 
-  <HBox alignment="CENTER" spacing="8.0">
-    <Button onAction="#decrementarVelocidade" styleClass="botao-incremento" text="−"/>
-    <VBox alignment="CENTER">
-      <Label styleClass="rotulo-incremento" text="VELOCIDADE"/>
-      <Label fx:id="lblValorVelocidade" styleClass="indicador-valor" text="0.0x"/>
+  <HBox alignment="CENTER" spacing="5.0">
+    <Button onAction="#decrementarVelocidade" styleClass="btn-ajuste" text="−"/>
+    <VBox alignment="CENTER" minWidth="60">
+      <Label styleClass="txt-pequeno" text="VELOCIDADE"/>
+      <Label fx:id="lblValorVelocidade" styleClass="txt-valor" text="0.0x"/>
     </VBox>
-    <Button onAction="#incrementarVelocidade" styleClass="botao-incremento" text="+"/>
+    <Button onAction="#incrementarVelocidade" styleClass="btn-ajuste" text="+"/>
   </HBox>
 
-  <Separator orientation="VERTICAL" prefHeight="24.0" styleClass="separador-customizado"/>
+  <Separator orientation="VERTICAL" prefHeight="20.0" styleClass="separador"/>
 
-  <HBox alignment="CENTER" spacing="8.0">
-    <VBox alignment="CENTER">
-      <Label styleClass="rotulo-incremento" text="OPACIDADE"/>
-      <Slider fx:id="sliderTransparencia"
-              min="20.0"
-              max="100.0"
-              value="100.0"
-              prefWidth="100.0" />
-    </VBox>
-  </HBox>
+  <VBox alignment="CENTER" spacing="2">
+    <Label styleClass="txt-pequeno" text="OPACIDADE"/>
+    <Slider fx:id="sliderTransparencia" min="20.0" max="100.0" value="100.0" prefWidth="90.0" />
+  </VBox>
 
-  <ToggleButton fx:id="btnFantasma" onAction="#alternarClickThrough" styleClass="botao-fantasma">
-    <tooltip>
-      <Tooltip text="Modo Fantasma (Atalho: Scroll Lock)"/>
-    </tooltip>
+  <Separator orientation="VERTICAL" prefHeight="20.0" styleClass="separador"/>
+
+  <ToggleButton fx:id="btnFantasma" onAction="#alternarClickThrough" styleClass="btn-icon">
+    <tooltip><Tooltip text="Modo Fantasma (Scroll Lock)"/></tooltip>
     <graphic>
-      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-          <Image url="@../../images/ghost.png"/>
-        </image>
+      <ImageView fitHeight="20.0" fitWidth="20.0">
+        <Image url="@../../images/ghost.png"/>
       </ImageView>
     </graphic>
   </ToggleButton>
 
-  <Separator orientation="VERTICAL" prefHeight="24.0" styleClass="separador-customizado"/>
-
-  <Button onAction="#inserirBlocoCodigo" styleClass="botao-fantasma">
-    <tooltip>
-      <Tooltip text="Inserir Snippet de Código"/>
-    </tooltip>
+  <Button onAction="#inserirBlocoCodigo" styleClass="btn-icon">
+    <tooltip><Tooltip text="Snippet de Código"/></tooltip>
     <graphic>
-      <Label text="&lt;/&gt;" style="-fx-text-fill: #10b981; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+      <Label text="&lt;/&gt;" style="-fx-text-fill: #10b981; -fx-font-weight: bold;"/>
     </graphic>
   </Button>
 
-  <Button onAction="#settings" styleClass="botao-fantasma">
+  <Button onAction="#settings" styleClass="btn-icon">
     <graphic>
-      <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-          <Image url="@../../images/gear.png" />
-        </image>
+      <ImageView fitHeight="20.0" fitWidth="20.0">
+        <Image url="@../../images/gear.png" />
       </ImageView>
     </graphic>
   </Button>
-
-
 </HBox>
