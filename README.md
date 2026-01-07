@@ -1,100 +1,52 @@
-# Teleprompter Java ✅
+# Teleprompter Java
 
-**Teleprompter Interativo** desenvolvido em Java/JavaFX para criar e apresentar roteiros com rolagem automática, snippets de código e salvamento local.
+O **Teleprompter Java** é uma ferramenta que foi criada para você que cria vídeos. Ao contrário de teleprompters
+simples, este projeto integra recursos de baixo nível do Windows para oferecer uma experiência de "tela fantasma".
+---
+
+## Funcionalidades do Projeto!
+
+* **Sem usar .txt:** Eliminando dezenas de blocos de notas. Tudo é centralizado em um banco de dados
+  local em memória que utiliza um arquivo simples (.mv.db) para não perder as informações.
+
+* **Invisibilidade para Gravadores:** Através de chamadas nativas do Windows via JNA, o teleprompter pode ficar visível
+  para você, mas **completamente invisível** no OBS, Zoom, Teams ou qualquer gravador de tela.
+
+* **Modo Fantasma (Click-Through):** Acesse pastas, sites ou botões que estão "atrás" do teleprompter sem fechar o roteiro.
+  A função pode ser ativada e desativada usando o botão **Scroll Lock**.
+
+* **Modo Transparência:** Permite ajustar o nível de opacidade da janela através de um controle deslizante, evitando que
+  o teleprompter obstrua totalmente a visão de outros conteúdos na tela.
+
+* **Editor WYSIWYG Integrado:** Formate seu texto, use cores e negrito diretamente no app.
+
+* **Rolagem Automática Inteligente:** Controle a velocidade milimetricamente e pause quando precisar.
+
+* **Gestão de Roteiros:** Salve, edite e selecione diferentes textos rapidamente.
+
+* **Snippets de Código:** Insira blocos de código formatados dentro do roteiro (ideal para tutoriais de programação).
 
 ---
 
-## 🔧 Principais funcionalidades
+## 🧰 Stack Tecnológico & Integrações
 
-- Editor WYSIWYG (HTMLEditor) para criar e formatar roteiros.
-- Rolagem automática controlável (play/pause, velocidade).
-- Inserção de blocos de código (snippet) via script injetado no WebView.
-- Salvamento, edição e exclusão de roteiros em banco H2 embutido.
-- Proteção contra captura de tela em Windows usando JNA (SetWindowDisplayAffinity).
-- UI personalizada construída com FXML e CSS.
+### 1. Java 17 + JavaFX
 
----
+A interface é construída com JavaFX, utilizando FXML para layout e CSS para estilização.
 
-## 🧰 Stack tecnológico
+### 2. H2 Database (Persistência Local)
 
-- Java 17
-- JavaFX (controls/fxml/web)
-- JNA (para integração com Win32)
-- H2 Database (arquivo local)
-- Maven (com `javafx-maven-plugin` configurado)
+* **Modo:** H2 trabalhando com arquivo local (`.mv.db`).
+* **Vantagem:** Banco de dados simples em memória. Evita a criação manual de arquivos e garante que, se o app fechar,
+  seus dados estarão salvos no diretório do projeto.
 
----
+### 3. JNA (Java Native Access) & Win32 API
 
-## 🚀 Como executar
+Utiliza o JNA para conversar diretamente com a biblioteca `user32.dll` do Windows (escrita em C) para acessar
+recursos de baixo nível:
 
-Pré-requisitos:
-- JDK 17 instalado
-- Maven (ou use o wrapper incluído `mvnw` / `mvnw.cmd`)
-
-Executar em desenvolvimento:
-
-Windows (PowerShell):
-
-```powershell
-.\\mvnw.cmd clean javafx:run
-```
-
-Linux/macOS:
-
-```bash
-./mvnw clean javafx:run
-```
-
-Alternativamente rode a classe principal `org.br.prompterjava.teleprompterjava.MainApplication` pela sua IDE.
+* **SetWindowDisplayAffinity:** Bloqueia a captura da janela por pixels em nível de kernel.
+* **WS_EX_TRANSPARENT:** Permite que os cliques do mouse "atravessem" a janela.
+* **Hotkeys:** Captura teclas de atalho (como Scroll Lock) mesmo se o app não estiver em foco.
 
 ---
-
-## 💾 Banco de dados
-
-- Banco H2 local com URL: `jdbc:h2:./prompter_db;DB_CLOSE_DELAY=-1`
-- Arquivo gerado no diretório do projeto (ex.: `prompter_db.mv.db`)
-- A inicialização da tabela `textos` é feita automaticamente por `DatabaseConfig.initDatabase()`
-
----
-
-## 📁 Estrutura do projeto (resumo)
-
-- `src/main/java` – código fonte
-  - `MainApplication.java` – ponto de entrada
-  - `controller/` – controllers FXML (Main, Botoes, TextoPrompter, etc.)
-  - `config/DatabaseConfig.java` – configuração H2/CRUD básico
-  - `util/WindowUtils.java` + `interfaces/CustomUser32.java` – integração JNA / Windows
-- `src/main/resources` – FXML, imagens e CSS
-  - `main.fxml`, `views/` (layouts), `styles` (CSS), `images/`
-- `pom.xml` – dependências e plugin JavaFX
-
----
-
-## 🧩 Como funciona (alto nível)
-
-- A UI principal (`main.fxml`) carrega o `texto_prompter.fxml` que contém um `HTMLEditor`.
-- A rolagem automática é implementada por um `Timeline` que injeta `window.scrollBy(...)` no `WebView` embutido.
-- Inserção de blocos de código é feita via script que cria um elemento HTML customizado (com botão de remoção).
-- Proteção de captura usa `SetWindowDisplayAffinity` (apenas no Windows).
-
----
-
-## 🛠️ Desenvolvimento e notas
-
-- Para depurar a UI, abra `MainApplication` na IDE e execute.
-- Verifique a compatibilidade das versões do JavaFX (unificar `javafx-*` se necessário).
-- Funções (Settings, Accessibility) ainda têm controllers vazios — pontos fáceis para estender funcionalidades.
-
----
-
-## Contribuição
-
-Sinta-se à vontade para abrir issues com bugs ou sugestões. Para contribuições via PR, descreva claramente a alteração e inclua testes quando aplicável.
-
----
-
-Se desejar, eu posso:
-- adicionar badges, exemplos de uso ou um guia de empacotamento (jlink/native image) ✅
-- criar um `launch` task para o VS Code ou um script `run.bat` para Windows ⚙️
-
-Diga o que prefere que eu inclua a seguir ✨

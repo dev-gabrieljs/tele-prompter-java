@@ -6,12 +6,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.br.prompterjava.teleprompterjava.controller.TextoPrompterController;
 import org.br.prompterjava.teleprompterjava.util.WindowUtils;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainApplication extends Application {
-
+  private static final Logger log = Logger.getLogger(MainApplication.class.getName());
   private static final String TITULO_APP = "Teleprompter Interativo";
 
   @Override
@@ -39,7 +42,7 @@ public class MainApplication extends Application {
       });
 
     } catch (IOException e) {
-      System.err.println("Erro ao carregar a interface: " + e.getMessage());
+      log.log(Level.SEVERE,"Erro ao carregar a interface: " + e.getMessage());
     }
   }
 }
