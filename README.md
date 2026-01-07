@@ -29,7 +29,7 @@ O Teleprompter Java é uma ferramenta que foi criada para você que cria vídeos
 
 A interface é construída com JavaFX, utilizando FXML para layout e CSS para estilização.
 
- *H2 Database (Persistência Local)
+ * H2 Database (Persistência Local)
 
 * Modo: H2 trabalhando com arquivo local (`.mv.db`).
 * Vantagem: Banco de dados simples em memória. Evita a criação manual de arquivos e garante que, se o app fechar,
