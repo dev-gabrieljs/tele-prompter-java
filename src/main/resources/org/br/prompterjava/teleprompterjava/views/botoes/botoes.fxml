@@ -47,6 +47,32 @@
 
   <Separator orientation="VERTICAL" prefHeight="24.0" styleClass="separador-customizado"/>
 
+  <HBox alignment="CENTER" spacing="8.0">
+    <VBox alignment="CENTER">
+      <Label styleClass="rotulo-incremento" text="OPACIDADE"/>
+      <Slider fx:id="sliderTransparencia"
+              min="20.0"
+              max="100.0"
+              value="100.0"
+              prefWidth="100.0" />
+    </VBox>
+  </HBox>
+
+  <ToggleButton fx:id="btnFantasma" onAction="#alternarClickThrough" styleClass="botao-fantasma">
+    <tooltip>
+      <Tooltip text="Modo Fantasma (Atalho: Scroll Lock)"/>
+    </tooltip>
+    <graphic>
+      <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+          <Image url="@../../images/ghost.png"/>
+        </image>
+      </ImageView>
+    </graphic>
+  </ToggleButton>
+
+  <Separator orientation="VERTICAL" prefHeight="24.0" styleClass="separador-customizado"/>
+
   <Button onAction="#inserirBlocoCodigo" styleClass="botao-fantasma">
     <tooltip>
       <Tooltip text="Inserir Snippet de Código"/>

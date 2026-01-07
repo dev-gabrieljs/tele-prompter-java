@@ -4,6 +4,7 @@ module org.br.prompterjava.teleprompterjava {
     requires com.sun.jna;
   requires java.sql;
   requires javafx.web;
+  requires javafx.controls;
 
   opens org.br.prompterjava.teleprompterjava to javafx.fxml;
     exports org.br.prompterjava.teleprompterjava;

@@ -136,7 +136,6 @@
     -fx-opacity: 0.8;
 }
 
-/* Estilo para o Bloco de Código injetado no HTML */
 .bloco-codigo-teams {
     background-color: #2f2f2f;
     border: 1px solid #444;
@@ -146,16 +145,49 @@
     color: #e0e0e0;
 }
 
-/* Ajuste para o círculo de pulso da animação */
 #circuloPulso {
-    -fx-mouse-transparent: true; /* Permite clicar no botão através do círculo */
+    -fx-mouse-transparent: true;
 }
 
-/* Melhoria no botão principal de Play */
 .botao-principal-play {
     -fx-background-color: #10b981;
-    -fx-background-radius: 50; /* Deixa redondo */
+    -fx-background-radius: 50;
     -fx-text-fill: #1a1a1a;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, #10b98166, 10, 0, 0, 0);
+}
+
+
+.slider {
+    -fx-cursor: hand;
+}
+
+
+.slider .track {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 5;
+    -fx-pref-height: 6;
+}
+
+
+.slider .thumb {
+    -fx-background-color: #10b981;
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0, 0, 2);
+}
+
+.slider .thumb:hover {
+    -fx-background-color: #34d399;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.slider .colored-track {
+    -fx-background-color: #10b981;
+    -fx-background-radius: 5;
+}
+
+.vbox-opacidade {
+    -fx-padding: 0 5 0 5;
 }

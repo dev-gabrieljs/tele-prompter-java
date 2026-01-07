@@ -11,13 +11,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
 import javafx.util.Duration;
-import org.br.prompterjava.teleprompterjava.config.DatabaseConfig;
+import org.br.prompterjava.teleprompterjava.model.Roteiro;
+import org.br.prompterjava.teleprompterjava.util.DbUtils;
 
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +32,7 @@ public class TextoPrompterController {
   private HTMLEditor htmlEditor;
   @FXML
   private FlowPane barraControle;
+
   private boolean barraEscondida = false;
   private Integer idTextoAtual = null;
   private String tituloAtual = "";
@@ -41,9 +41,9 @@ public class TextoPrompterController {
   @FXML
   public void initialize() {
     LOGGER.info("Inicializando TextoPrompterController...");
-    DatabaseConfig.initDatabase();
 
-    htmlEditor.setHtmlText("<body style=\"background:#1a1a1a; color:white; font-family:Arial;\"></body>");
+    // Estilo inicial do editor
+    limparTela();
 
     Platform.runLater(() -> {
       configurarMenuContexto();
@@ -53,28 +53,21 @@ public class TextoPrompterController {
 
   @FXML
   private void toggleBarra() {
-    // Altura real da barra que está sendo movida
     double altura = barraControle.getHeight();
-
     TranslateTransition ttBarra = new TranslateTransition(Duration.millis(300), containerControles);
     TranslateTransition ttEditor = new TranslateTransition(Duration.millis(300), htmlEditor);
 
     if (!barraEscondida) {
-      // Esconde a barra (sobe)
       ttBarra.setToY(-altura);
-      // Volta o editor para o topo (0)
       ttEditor.setToY(0);
-
       lblSeta.setText("▼");
       barraEscondida = true;
     } else {
       ttBarra.setToY(0);
       ttEditor.setToY(altura);
-
       lblSeta.setText("▲");
       barraEscondida = false;
     }
-
     ttBarra.play();
     ttEditor.play();
   }
@@ -82,38 +75,42 @@ public class TextoPrompterController {
   private void configurarMenuContexto() {
     menuContexto = new ContextMenu();
 
-    MenuItem recortar = new MenuItem("Recortar");
-    recortar.setOnAction(e -> executarComandoJS("cut"));
-    MenuItem copiar = new MenuItem("Copiar");
-    copiar.setOnAction(e -> executarComandoJS("copy"));
-    MenuItem colar = new MenuItem("Colar");
-    colar.setOnAction(e -> executarComandoJS("paste"));
-
     MenuItem salvar = new MenuItem("Salvar Novo");
     salvar.setOnAction(e -> abrirDialogoSalvar());
+
     MenuItem editar = new MenuItem("Salvar Alterações");
     editar.setOnAction(e -> abrirDialogoSalvarEdicao());
+
     MenuItem excluir = new MenuItem("Excluir Roteiro");
     excluir.setOnAction(e -> abrirDialogoExcluir());
+
     MenuItem limpar = new MenuItem("Limpar Tela");
-    limpar.setOnAction(e -> htmlEditor.setHtmlText("<body style='background:#1a1a1a; color:white;'></body>"));
+    limpar.setOnAction(e -> limparTela());
 
-    Menu menuMudarTexto = new Menu("Mudar Texto");
-    menuMudarTexto.setOnShowing(e -> carregarListaDoBanco(menuMudarTexto));
+    Menu menuMudarTexto = new Menu("Mudar Texto rápido");
+    menuMudarTexto.setOnShowing(e -> popularMenuRapido(menuMudarTexto));
 
-    MenuItem itemMudarTexto = new MenuItem("Selecionar outro Roteiro...");
-    itemMudarTexto.setOnAction(e -> abrirEscolhaDeTexto());
+    MenuItem itemEscolherTexto = new MenuItem("Abrir Lista Completa...");
+    itemEscolherTexto.setOnAction(e -> abrirEscolhaDeTexto());
 
     menuContexto.getItems().addAll(
-        recortar, copiar, colar, new SeparatorMenuItem(),
+        new MenuItem("Recortar") {{
+          setOnAction(e -> executarComandoJS("cut"));
+        }},
+        new MenuItem("Copiar") {{
+          setOnAction(e -> executarComandoJS("copy"));
+        }},
+        new MenuItem("Colar") {{
+          setOnAction(e -> executarComandoJS("paste"));
+        }},
+        new SeparatorMenuItem(),
         editar, excluir, new SeparatorMenuItem(),
         salvar, limpar, new SeparatorMenuItem(),
-        itemMudarTexto
+        menuMudarTexto, itemEscolherTexto
     );
 
     Node webView = htmlEditor.lookup("WebView");
-    if (webView != null) {
-      WebView wv = (WebView) webView;
+    if (webView instanceof WebView wv) {
       wv.setContextMenuEnabled(false);
       wv.setOnContextMenuRequested(e -> menuContexto.show(wv, e.getScreenX(), e.getScreenY()));
       wv.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
@@ -123,139 +120,71 @@ public class TextoPrompterController {
   }
 
   private void abrirEscolhaDeTexto() {
-    List<String> titulos = new ArrayList<>();
-    Map<String, Integer> mapaTextos = new HashMap<>();
-
-    try (Connection c = DatabaseConfig.getConnection();
-         Statement st = c.createStatement();
-         ResultSet rs = st.executeQuery("SELECT id, titulo FROM textos ORDER BY id DESC")) {
-      while (rs.next()) {
-        String t = rs.getString("titulo");
-        int id = rs.getInt("id");
-        titulos.add(t);
-        mapaTextos.put(t, id);
+    try {
+      List<Roteiro> roteiros = DbUtils.listarTodos();
+      if (roteiros.isEmpty()) {
+        mostrarAlerta("Aviso", "Nenhum roteiro encontrado.");
+        return;
       }
+
+      ChoiceDialog<Roteiro> dialog = new ChoiceDialog<>(roteiros.get(0), roteiros);
+      dialog.setTitle("Mudar Roteiro");
+      dialog.setHeaderText("Selecione o roteiro desejado:");
+
+      dialog.showAndWait().ifPresent(this::aplicarRoteiroNaTela);
     } catch (Exception e) {
-      LOGGER.log(Level.SEVERE, "Erro ao listar roteiros", e);
-    }
-
-    if (titulos.isEmpty()) {
-      mostrarAlerta("Aviso", "Nenhum roteiro encontrado.");
-      return;
-    }
-
-    ChoiceDialog<String> dialog = new ChoiceDialog<>(titulos.get(0), titulos);
-    dialog.setTitle("Mudar Roteiro");
-    dialog.setHeaderText("Selecione o roteiro:");
-    dialog.setContentText("Opções:");
-
-    dialog.showAndWait().ifPresent(selecionado -> {
-      Integer id = mapaTextos.get(selecionado);
-      carregarConteudoDoBanco(id);
-    });
-  }
-
-  private void moverBotoesNativos() {
-    Platform.runLater(() -> {
-      Node topToolbar = htmlEditor.lookup(".top-toolbar");
-      Node bottomToolbar = htmlEditor.lookup(".bottom-toolbar");
-
-      if (topToolbar instanceof ToolBar) {
-        ToolBar tb1 = (ToolBar) topToolbar;
-        barraControle.getChildren().addAll(new ArrayList<>(tb1.getItems()));
-        tb1.setVisible(false);
-        tb1.setManaged(false);
-      }
-
-      if (bottomToolbar instanceof ToolBar) {
-        ToolBar tb2 = (ToolBar) bottomToolbar;
-        barraControle.getChildren().addAll(new ArrayList<>(tb2.getItems()));
-        tb2.setVisible(false);
-        tb2.setManaged(false);
-      }
-
-      barraControle.setStyle("-fx-background-color: #262626; -fx-padding: 5; -fx-alignment: CENTER_LEFT;");
-    });
-  }
-
-  private void executarComandoJS(String comando) {
-    WebView wv = (WebView) htmlEditor.lookup("WebView");
-    if (wv != null) {
-      wv.getEngine().executeScript("document.execCommand('" + comando + "')");
+      LOGGER.log(Level.SEVERE, "Erro ao carregar lista", e);
     }
   }
 
-  private void carregarListaDoBanco(Menu menuPai) {
+  private void popularMenuRapido(Menu menuPai) {
     menuPai.getItems().clear();
-    try (Connection c = DatabaseConfig.getConnection();
-         Statement st = c.createStatement();
-         ResultSet rs = st.executeQuery("SELECT id, titulo FROM textos ORDER BY id DESC")) {
-      while (rs.next()) {
-        final int idParaCarregar = rs.getInt("id");
-        final String tituloBotao = rs.getString("titulo");
-        MenuItem item = new MenuItem(tituloBotao);
-        item.setOnAction(event -> carregarConteudoDoBanco(idParaCarregar));
+    try {
+      List<Roteiro> roteiros = DbUtils.listarTodos();
+      for (Roteiro r : roteiros) {
+        MenuItem item = new MenuItem(r.titulo());
+        item.setOnAction(e -> aplicarRoteiroNaTela(r));
         menuPai.getItems().add(item);
       }
     } catch (Exception e) {
-      LOGGER.log(Level.SEVERE, "Erro ao listar", e);
+      LOGGER.log(Level.SEVERE, "Erro no menu rápido", e);
     }
   }
 
-  private void carregarConteudoDoBanco(int id) {
-    try (Connection c = DatabaseConfig.getConnection();
-         PreparedStatement ps = c.prepareStatement("SELECT titulo, conteudo FROM textos WHERE id=?")) {
-      ps.setInt(1, id);
-      ResultSet rs = ps.executeQuery();
-      if (rs.next()) {
-        this.tituloAtual = rs.getString("titulo");
-        this.idTextoAtual = id;
-        String conteudo = rs.getString("conteudo");
-        Platform.runLater(() -> {
-          htmlEditor.setHtmlText(conteudo);
-          htmlEditor.requestFocus();
-        });
-      }
-    } catch (Exception e) {
-      LOGGER.log(Level.SEVERE, "Erro ao carregar", e);
-    }
+  private void aplicarRoteiroNaTela(Roteiro roteiro) {
+    this.idTextoAtual = roteiro.id();
+    this.tituloAtual = roteiro.titulo();
+    Platform.runLater(() -> {
+      htmlEditor.setHtmlText(roteiro.conteudo());
+      htmlEditor.requestFocus();
+    });
   }
 
   private void abrirDialogoSalvar() {
     TextInputDialog dialog = new TextInputDialog(tituloAtual);
     dialog.setTitle("Salvar Roteiro");
-    dialog.showAndWait().ifPresent(this::salvarNoBanco);
-  }
-
-  private void salvarNoBanco(String titulo) {
-    String sql = "INSERT INTO textos (titulo, conteudo) VALUES (?, ?)";
-    try (Connection c = DatabaseConfig.getConnection();
-         PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-      ps.setString(1, titulo);
-      ps.setString(2, htmlEditor.getHtmlText());
-      ps.executeUpdate();
-      try (ResultSet rs = ps.getGeneratedKeys()) {
-        if (rs.next()) idTextoAtual = rs.getInt(1);
-        tituloAtual = titulo;
+    dialog.setHeaderText("Digite o título do novo roteiro:");
+    dialog.showAndWait().ifPresent(titulo -> {
+      try {
+        this.idTextoAtual = DbUtils.salvar(titulo, htmlEditor.getHtmlText());
+        this.tituloAtual = titulo;
+      } catch (Exception e) {
+        LOGGER.log(Level.SEVERE, "Erro ao salvar", e);
       }
-    } catch (Exception e) {
-      LOGGER.log(Level.SEVERE, "Erro ao salvar", e);
-    }
+    });
   }
 
   private void abrirDialogoSalvarEdicao() {
-    if (idTextoAtual == null) return;
+    if (idTextoAtual == null) {
+      mostrarAlerta("Aviso", "Este texto ainda não foi salvo no banco.");
+      return;
+    }
     TextInputDialog dialog = new TextInputDialog(tituloAtual);
     dialog.setTitle("Editar Roteiro");
     dialog.showAndWait().ifPresent(novoTitulo -> {
-      String sql = "UPDATE textos SET titulo=?, conteudo=? WHERE id=?";
-      try (Connection c = DatabaseConfig.getConnection();
-           PreparedStatement ps = c.prepareStatement(sql)) {
-        ps.setString(1, novoTitulo);
-        ps.setString(2, htmlEditor.getHtmlText());
-        ps.setInt(3, idTextoAtual);
-        ps.executeUpdate();
-        tituloAtual = novoTitulo;
+      try {
+        DbUtils.atualizar(idTextoAtual, novoTitulo, htmlEditor.getHtmlText());
+        this.tituloAtual = novoTitulo;
       } catch (Exception e) {
         LOGGER.log(Level.SEVERE, "Erro ao editar", e);
       }
@@ -267,23 +196,49 @@ public class TextoPrompterController {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Excluir: " + tituloAtual + "?", ButtonType.OK, ButtonType.CANCEL);
     alert.showAndWait().ifPresent(btn -> {
       if (btn == ButtonType.OK) {
-        try (Connection c = DatabaseConfig.getConnection();
-             PreparedStatement ps = c.prepareStatement("DELETE FROM textos WHERE id=?")) {
-          ps.setInt(1, idTextoAtual);
-          ps.executeUpdate();
-          Platform.runLater(() -> htmlEditor.setHtmlText("<body style='background:#1a1a1a; color:white;'></body>"));
-          idTextoAtual = null;
-          tituloAtual = "";
-        } catch (Exception e) {
+        try {
+          DbUtils.excluir(idTextoAtual);
+          limparTela();
+          this.idTextoAtual = null;
+          this.tituloAtual = "";
+        } catch (SQLException e) {
           LOGGER.log(Level.SEVERE, "Erro ao excluir", e);
         }
       }
     });
   }
 
+  private void limparTela() {
+    htmlEditor.setHtmlText("<body style='background:#1a1a1a; color:white; font-family:Arial;'></body>");
+  }
+
+  private void moverBotoesNativos() {
+    Node topToolbar = htmlEditor.lookup(".top-toolbar");
+    Node bottomToolbar = htmlEditor.lookup(".bottom-toolbar");
+
+    if (topToolbar instanceof ToolBar tb1) {
+      barraControle.getChildren().addAll(new ArrayList<>(tb1.getItems()));
+      tb1.setVisible(false);
+      tb1.setManaged(false);
+    }
+    if (bottomToolbar instanceof ToolBar tb2) {
+      barraControle.getChildren().addAll(new ArrayList<>(tb2.getItems()));
+      tb2.setVisible(false);
+      tb2.setManaged(false);
+    }
+    barraControle.setStyle("-fx-background-color: #262626; -fx-padding: 5; -fx-alignment: CENTER_LEFT;");
+  }
+
+  private void executarComandoJS(String comando) {
+    if (htmlEditor.lookup("WebView") instanceof WebView wv) {
+      wv.getEngine().executeScript("document.execCommand('" + comando + "')");
+    }
+  }
+
   private void mostrarAlerta(String titulo, String msg) {
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle(titulo);
+    alert.setHeaderText(null);
     alert.setContentText(msg);
     alert.show();
   }

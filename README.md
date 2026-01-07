@@ -23,8 +23,6 @@
 - H2 Database (arquivo local)
 - Maven (com `javafx-maven-plugin` configurado)
 
-> Observação: o `pom.xml` referencia `javafx-controls` e `javafx-fxml` na versão 17 e `javafx-web` na versão 21 — recomendo unificar as versões do JavaFX para evitar incompatibilidades.
-
 ---
 
 ## 🚀 Como executar
@@ -92,12 +90,6 @@ Alternativamente rode a classe principal `org.br.prompterjava.teleprompterjava.M
 ## Contribuição
 
 Sinta-se à vontade para abrir issues com bugs ou sugestões. Para contribuições via PR, descreva claramente a alteração e inclua testes quando aplicável.
-
----
-
-## Licença
-
-Sem licença explícita no repositório — adicione um arquivo `LICENSE` se quiser declarar a licença do projeto.
 
 ---
 

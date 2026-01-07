@@ -1,18 +1,30 @@
 package org.br.prompterjava.teleprompterjava.controller;
 
+import com.sun.jna.platform.unix.X11.Window;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef;
+import com.sun.jna.platform.win32.WinDef.HWND;
+import com.sun.jna.platform.win32.WinUser;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.br.prompterjava.teleprompterjava.interfaces.CustomUser32;
+import org.br.prompterjava.teleprompterjava.util.WindowUtils;
 
+import java.lang.ModuleLayer.Controller;
 import java.util.logging.Logger;
 
 public class BotoesController {
@@ -22,11 +34,13 @@ public class BotoesController {
   @FXML public Circle circuloPulso;
   @FXML public ToggleButton btnPlayPause;
   @FXML public HBox barraControle;
+  public Slider sliderTransparencia;
 
   private HTMLEditor htmlEditor;
   private double velocidadeAtual = 1.0;
   private FadeTransition animacaoPulso;
   private Timeline motorRolagem;
+  private boolean modoFantasma = false;
 
   @FXML
   public void initialize() {
@@ -48,6 +62,17 @@ public class BotoesController {
       }
     }));
     motorRolagem.setCycleCount(Timeline.INDEFINITE);
+
+    sliderTransparencia.valueProperty().addListener((observable, oldValue, newValue) -> {
+      if (barraControle.getScene() != null) {
+        Stage stage = (Stage) barraControle.getScene().getWindow();
+
+        double opacidade = newValue.doubleValue() / 100.0;
+        stage.setOpacity(opacidade);
+      }
+    });
+
+    configurarAtalhoScrollLock();
   }
 
   public void setHtmlEditor(HTMLEditor htmlEditor) {
@@ -180,4 +205,32 @@ public class BotoesController {
   public void settings(ActionEvent actionEvent) {
   }
 
+  @FXML
+  public void alternarClickThrough() {
+    Stage stage = (Stage) barraControle.getScene().getWindow();
+    modoFantasma = !modoFantasma;
+    WindowUtils.configurarModoFantasma(stage.getTitle(), modoFantasma);
+
+    if (modoFantasma) {
+      stage.setAlwaysOnTop(true);
+      barraControle.setOpacity(0.5);
+    } else {
+      barraControle.setOpacity(1.0);
+      stage.requestFocus();
+    }
+  }
+  private void configurarAtalhoScrollLock() {
+    Thread hotkeyThread = new Thread(() -> {
+      CustomUser32.INSTANCE.RegisterHotKey(null, 1, 0, 0x91);
+
+      com.sun.jna.platform.win32.WinUser.MSG msg = new com.sun.jna.platform.win32.WinUser.MSG();
+      while (CustomUser32.INSTANCE.GetMessage(msg, null, 0, 0) != 0) {
+        if (msg.message == CustomUser32.WM_HOTKEY && msg.wParam.intValue() == 1) {
+          javafx.application.Platform.runLater(this::alternarClickThrough);
+        }
+      }
+    });
+    hotkeyThread.setDaemon(true);
+    hotkeyThread.start();
+  }
 }
