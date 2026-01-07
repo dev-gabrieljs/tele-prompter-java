@@ -7,21 +7,21 @@ O Teleprompter Java é uma ferramenta que foi criada para você que cria vídeos
   local em memória que utiliza um arquivo simples (.mv.db) para não perder as informações.
 
 * Invisibilidade para Gravadores: Através de chamadas nativas do Windows via JNA, o teleprompter pode ficar visível
-  para você, mas **completamente invisível** no OBS, Zoom, Teams ou qualquer gravador de tela.
+  para você, mas invisível no OBS, Zoom, Teams ou qualquer gravador de tela.
 
-* Modo Fantasma (Click-Through): Acesse pastas, sites ou botões que estão "atrás" do teleprompter sem fechar o roteiro.
-  A função pode ser ativada e desativada usando o botão **Scroll Lock**.
+* Modo Fantasma (Click-Through): Acesse pastas, sites ou botões que estão atrás do teleprompter sem fechar o roteiro.
+  A função pode ser ativada e desativada usando o botão *Scroll Lock.
 
-* Modo Transparência: Permite ajustar o nível de opacidade da janela através de um controle deslizante, evitando que
+* Modo Transparência: Permite ajustar a opacidade da janela através de um controle deslizante, evitando que
   o teleprompter obstrua totalmente a visão de outros conteúdos na tela.
 
-* Editor WYSIWYG Integrado:** Formate seu texto, use cores e negrito diretamente no app.
+* Editor WYSIWYG Integrado: Formate seu texto, use cores e negrito diretamente pelo HTML Editor do JavaFX.
 
-* Rolagem Automática Inteligente: Controle a velocidade milimetricamente e pause quando precisar.
+* Rolagem Automática: Controle a velocidade de rolagem de tela e pause quando precisar.
 
-* Gestão de Roteiros: Salve, edite e selecione diferentes textos rapidamente.
+* Gestão de Roteiros: Salve, edite e selecione diferentes textos.
 
-* Snippets de Código:** Insira blocos de código formatados dentro do roteiro (ideal para tutoriais de programação).
+* Snippets de Código: Insira blocos de código formatados dentro do roteiro.
 
 ---
 ### Bibilotecas
@@ -32,7 +32,7 @@ A interface é construída com JavaFX, utilizando FXML para layout e CSS para es
  * H2 Database (Persistência Local)
 
  Modo: H2 trabalhando com arquivo local (`.mv.db`).
- Vantagem: Banco de dados simples em memória. Evita a criação manual de arquivos e garante que, se o app fechar, seus dados estarão salvos no diretório do projeto.
+ Banco de dados simples em memória. Evita a criação manual de arquivos e garante que, se o app fechar, seus dados estarão salvos no diretório do projeto.
 
  * JNA (Java Native Access) & Win32 API
 
