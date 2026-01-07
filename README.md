@@ -27,7 +27,7 @@ O **Teleprompter Java** é uma ferramenta que foi criada para você que cria ví
 
 ---
 
-## 🧰 Stack Tecnológico & Integrações
+## Integrações
 
 ### 1. Java 17 + JavaFX
 
