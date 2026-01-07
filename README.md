@@ -31,17 +31,16 @@ A interface é construída com JavaFX, utilizando FXML para layout e CSS para es
 
  * H2 Database (Persistência Local)
 
-* Modo: H2 trabalhando com arquivo local (`.mv.db`).
-* Vantagem: Banco de dados simples em memória. Evita a criação manual de arquivos e garante que, se o app fechar,
-  seus dados estarão salvos no diretório do projeto.
+ Modo: H2 trabalhando com arquivo local (`.mv.db`).
+ Vantagem: Banco de dados simples em memória. Evita a criação manual de arquivos e garante que, se o app fechar, seus dados estarão salvos no diretório do projeto.
 
  * JNA (Java Native Access) & Win32 API
 
 Utiliza o JNA para conversar diretamente com a biblioteca `user32.dll` do Windows (escrita em C) para acessar
 recursos de baixo nível:
 
-* SetWindowDisplayAffinity: Bloqueia a captura da janela por pixels em nível de kernel.
-* WS_EX_TRANSPARENT: Permite que os cliques do mouse "atravessem" a janela.
-* Hotkeys: Captura teclas de atalho (como Scroll Lock) mesmo se o app não estiver em foco.
+Bloqueia a captura da janela por pixels em nível de kernel.
+Permite que os cliques do mouse "atravessem" a janela.
+Captura teclas de atalho (como Scroll Lock) mesmo se o app não estiver em foco.
 
 ---
