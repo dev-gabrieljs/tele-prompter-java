@@ -1,6 +1,6 @@
 # Teleprompter Java
 
-O Teleprompter Java é uma ferramenta que foi criada para você que cria vídeos. Este projeto integra recursos de baixo nível do Windows para oferecer uma experiência de "tela fantasma".
+O Teleprompter Java é uma ferramenta que foi criada para você que cria vídeos. Este projeto integra recursos de baixo nível do Windows para oferecer uma experiência de "tela fantasma" e funcionabilidades de um teleprompter digital.
 ---
 
 * Persistência com H2: Eliminando dezenas de blocos de notas. Tudo é centralizado em um banco de dados
