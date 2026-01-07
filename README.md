@@ -3,8 +3,6 @@
 O Teleprompter Java é uma ferramenta que foi criada para você que cria vídeos. Este projeto integra recursos de baixo nível do Windows para oferecer uma experiência de "tela fantasma".
 ---
 
-## O que o Projeto faz
-
 * Persistência com H2: Eliminando dezenas de blocos de notas. Tudo é centralizado em um banco de dados
   local em memória que utiliza um arquivo simples (.mv.db) para não perder as informações.
 
@@ -23,23 +21,21 @@ O Teleprompter Java é uma ferramenta que foi criada para você que cria vídeos
 
 * Gestão de Roteiros: Salve, edite e selecione diferentes textos rapidamente.
 
-* **Snippets de Código:** Insira blocos de código formatados dentro do roteiro (ideal para tutoriais de programação).
+* Snippets de Código:** Insira blocos de código formatados dentro do roteiro (ideal para tutoriais de programação).
 
 ---
-
-## Detalhes Técnicos
-
-### 1. Java 17 + JavaFX
+### Bibilotecas
+ * Java 17 + JavaFX
 
 A interface é construída com JavaFX, utilizando FXML para layout e CSS para estilização.
 
-### 2. H2 Database (Persistência Local)
+ *H2 Database (Persistência Local)
 
 * Modo: H2 trabalhando com arquivo local (`.mv.db`).
 * Vantagem: Banco de dados simples em memória. Evita a criação manual de arquivos e garante que, se o app fechar,
   seus dados estarão salvos no diretório do projeto.
 
-### 3. JNA (Java Native Access) & Win32 API
+ * JNA (Java Native Access) & Win32 API
 
 Utiliza o JNA para conversar diretamente com a biblioteca `user32.dll` do Windows (escrita em C) para acessar
 recursos de baixo nível:
