@@ -44,16 +44,25 @@ Permite que os cliques do mouse "atravessem" a janela.
 Captura teclas de atalho (como Scroll Lock) mesmo se o app não estiver em foco.
 
 
-## 🚀 Download
+## 🚀 Download e Instalação
 
 Você pode baixar a versão mais recente e portátil do TelePrompter (não precisa de instalação):
 
-[**👉 Baixar TelePrompter para Windows (.zip)**](https://github.com/dev-gabrieljs/tele-prompter-java/releases/latest/download/TelePrompter.rar)
-
-### Como usar:
-1. Baixe o arquivo `.zip` acima.
-2. Extraia o conteúdo em uma pasta de sua preferência.
-3. Execute o arquivo `TelePrompter.exe`.
-
+| Versão | Sistema | Arquivo | Data |
+| :--- | :--- | :--- | :--- |
+| **v1.0.0** | 🪟 Windows | [**TelePrompter.zip**](https://github.com/dev-gabrieljs/tele-prompter-java/releases/latest/download/TelePrompter.rar) | 13/01/2026 |
 
 ---
+
+### 🛠️ Como usar:
+1. **Baixe** o arquivo `.zip` (ou `.rar`) na tabela acima.
+2. **Extraia** o conteúdo em uma pasta de sua preferência.
+3. **Execute** o arquivo `TelePrompter.exe` para iniciar.
+
+---
+
+### 📝 Histórico de Atualizações
+| Versão | Data | Alterações | Status |
+| :--- | :--- | :--- | :--- |
+| v1.0.0 | 13/01/2026 | Lançamento inicial (Versão Portátil) | ✅ Estável |
+| v0.9.0 | 10/01/2026 | Testes de interface e correções de bug | ⚠️ Antiga |
