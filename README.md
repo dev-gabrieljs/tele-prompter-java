@@ -48,7 +48,7 @@ Captura teclas de atalho (como Scroll Lock) mesmo se o app não estiver em foco.
 
 Você pode baixar a versão mais recente e portátil do TelePrompter (não precisa de instalação):
 
-[**👉 Baixar TelePrompter para Windows (.zip)**](https://github.com/SEU_USUARIO/SEU_REPOSITORIO/releases/latest/download/TelePrompter-Windows-v1.0.zip)
+[**👉 Baixar TelePrompter para Windows (.zip)**](https://github.com/dev-gabrieljs/tele-prompter-java/releases/latest/download/TelePrompter.rar)
 
 ### Como usar:
 1. Baixe o arquivo `.zip` acima.
