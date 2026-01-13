@@ -50,7 +50,7 @@ Você pode baixar a versão mais recente e portátil do TelePrompter (não preci
 
 | Versão | Sistema | Arquivo | Data | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| **v1.0.0** | 🪟 Windows | [**TelePrompter.zip**](https://github.com/dev-gabrieljs/tele-prompter-java/releases/latest/download/TelePrompter.rar) | 13/01/2026 | ✅ Estável |
+| **v1.0.0** | 🪟 Windows | [**TelePrompter.zip**](https://github.com/dev-gabrieljs/tele-prompter-java/releases/v1.0.0/download/TelePrompter.rar) | 13/01/2026 | ✅ Estável |
 
 ---
 
