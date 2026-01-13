@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 
 public class MainApplication extends Application {
   private static final Logger log = Logger.getLogger(org.br.prompterjava.teleprompterjava.MainApplication.class.getName());
-  private static final String TITULO_APP = "Teleprompter Interativo";
 
   @Override
   public void start(Stage primaryStage) {
@@ -45,5 +44,8 @@ public class MainApplication extends Application {
     } catch (IOException e) {
       log.log(Level.SEVERE, "Erro ao carregar a interface: " + e.getMessage());
     }
+  }
+  public static void main(String[] args) {
+    launch(args);
   }
 }

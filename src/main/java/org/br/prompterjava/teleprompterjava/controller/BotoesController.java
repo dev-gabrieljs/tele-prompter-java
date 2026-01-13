@@ -164,7 +164,7 @@ public class BotoesController {
             "   table.parentNode.insertBefore(pApos, table.nextSibling);" +
 
             "   var dispararFoco = function() {" +
-            "       area.click();" + // Simula clique real
+            "       area.click();" +
             "       area.focus();" +
             "       var r = document.createRange();" +
             "       r.selectNodeContents(area);" +

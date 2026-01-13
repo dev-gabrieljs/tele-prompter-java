@@ -43,4 +43,17 @@ Bloqueia a captura da janela por pixels em nível de kernel.
 Permite que os cliques do mouse "atravessem" a janela.
 Captura teclas de atalho (como Scroll Lock) mesmo se o app não estiver em foco.
 
+
+## 🚀 Download
+
+Você pode baixar a versão mais recente e portátil do TelePrompter (não precisa de instalação):
+
+[**👉 Baixar TelePrompter para Windows (.zip)**](https://github.com/SEU_USUARIO/SEU_REPOSITORIO/releases/latest/download/TelePrompter-Windows-v1.0.zip)
+
+### Como usar:
+1. Baixe o arquivo `.zip` acima.
+2. Extraia o conteúdo em uma pasta de sua preferência.
+3. Execute o arquivo `TelePrompter.exe`.
+
+
 ---
