@@ -48,9 +48,9 @@ Captura teclas de atalho (como Scroll Lock) mesmo se o app não estiver em foco.
 
 Você pode baixar a versão mais recente e portátil do TelePrompter (não precisa de instalação):
 
-| Versão | Sistema | Arquivo | Data |
-| :--- | :--- | :--- | :--- |
-| **v1.0.0** | 🪟 Windows | [**TelePrompter.zip**](https://github.com/dev-gabrieljs/tele-prompter-java/releases/latest/download/TelePrompter.rar) | 13/01/2026 |
+| Versão | Sistema | Arquivo | Data | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **v1.0.0** | 🪟 Windows | [**TelePrompter.zip**](https://github.com/dev-gabrieljs/tele-prompter-java/releases/latest/download/TelePrompter.rar) | 13/01/2026 | ✅ Estável |
 
 ---
 
@@ -61,8 +61,3 @@ Você pode baixar a versão mais recente e portátil do TelePrompter (não preci
 
 ---
 
-### 📝 Histórico de Atualizações
-| Versão | Data | Alterações | Status |
-| :--- | :--- | :--- | :--- |
-| v1.0.0 | 13/01/2026 | Lançamento inicial (Versão Portátil) | ✅ Estável |
-| v0.9.0 | 10/01/2026 | Testes de interface e correções de bug | ⚠️ Antiga |
