@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.br.prompterjava.teleprompterjava.controller.QrcodeController"
+      spacing="15" alignment="CENTER" style="-fx-background-color: white; -fx-padding: 30;">
+
+  <Label text="📱 Conectar Celular"
+         style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #10b981;"/>
+
+  <Label text="Escaneie o QR Code com a câmera do celular:"
+         style="-fx-font-size: 14px; -fx-text-fill: #4b5563;"/>
+
+  <ImageView fx:id="imgQrCode" fitHeight="300" fitWidth="300" preserveRatio="true"/>
+
+  <Label fx:id="lblToken"
+         style="-fx-font-weight: bold; -fx-font-size: 12px; -fx-text-fill: #6b7280; -fx-padding: 8px; -fx-background-color: #f3f4f6; -fx-background-radius: 6px;"/>
+
+  <Label fx:id="lblDica" wrapText="true" maxWidth="350"
+         text=" PC e celular devem estar na mesma rede Wi-Fi."
+         style="-fx-font-size: 12px; -fx-text-fill: #6b7280; -fx-background-color: #fef3c7; -fx-padding: 12px; -fx-background-radius: 6px; -fx-border-color: #fbbf24;"/>
+
+  <Button text="Fechar" fx:id="btnFechar" onAction="#handleFechar"
+          style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10px 30px; -fx-background-radius: 6px; -fx-cursor: hand;"/>
+</VBox>

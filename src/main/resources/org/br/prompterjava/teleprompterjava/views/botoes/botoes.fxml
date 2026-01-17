@@ -63,6 +63,17 @@
     </graphic>
   </Button>
 
+  <Separator orientation="VERTICAL" prefHeight="20.0" styleClass="separador"/>
+
+  <Button onAction="#gerarConexaoRemota" styleClass="btn-icon">
+    <tooltip><Tooltip text="Controle Remoto (Celular)"/></tooltip>
+    <graphic>
+      <ImageView fitHeight="20.0" fitWidth="20.0">
+        <Image url="@../../images/smartphone.png" />
+      </ImageView>
+    </graphic>
+  </Button>
+
   <Button onAction="#settings" styleClass="btn-icon">
     <graphic>
       <ImageView fitHeight="20.0" fitWidth="20.0">
