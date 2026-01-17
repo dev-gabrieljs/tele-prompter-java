@@ -50,8 +50,8 @@ Você pode baixar a versão mais recente e portátil do TelePrompter (não preci
 
 | Versão | Sistema | Arquivo | Data | Status | Implementações |
 | :--- | :--- | :--- | :--- | :--- |:--- |
-| **v1.0.0** | 🪟 Windows | [**TelePrompter.zip**](https://github.com/dev-gabrieljs/tele-prompter-java/releases/download/v1.0.0/TelePrompter.rar) | 13/01/2026 | ✅ Estável | Versão Base |
-| **v1.0.1** | 🪟 Windows | [**TelePrompter.zip**](https://github.com/dev-gabrieljs/tele-prompter-java/releases/download/v1.0.1/TelePrompter.rar) | 17/01/2026 | ✅ Estável | 🟢 Controle Remoto
+| **v1.0.0** | 🪟 Windows | [**TelePrompter-v1.0.0.zip**](https://github.com/dev-gabrieljs/tele-prompter-java/releases/download/v1.0.0/TelePrompter.rar) | 13/01/2026 | ✅ Estável | Versão Base |
+| **v1.0.1** | 🪟 Windows | [**TelePrompter-v1.0.1.zip**](https://github.com/dev-gabrieljs/tele-prompter-java/releases/download/v1.0.1/TelePrompter.rar) | 17/01/2026 | ✅ Estável | 🟢 Controle Remoto
 
 ---
 
