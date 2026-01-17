@@ -5,9 +5,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.web.HTMLEditor;
@@ -15,13 +20,15 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.br.prompterjava.teleprompterjava.interfaces.CustomUser32;
+import org.br.prompterjava.teleprompterjava.util.RemotoUtil;
 import org.br.prompterjava.teleprompterjava.util.WindowUtils;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public class BotoesController {
   private static final Logger LOGGER = Logger.getLogger(BotoesController.class.getName());
-
+  private RemotoUtil remoteUtil = new RemotoUtil();
   @FXML public Label lblValorVelocidade;
   @FXML public Circle circuloPulso;
   @FXML public ToggleButton btnPlayPause;
@@ -89,7 +96,6 @@ public class BotoesController {
     if (htmlEditor != null) {
       WebView webView = (WebView) htmlEditor.lookup("WebView");
       if (webView != null) {
-        // window.scrollTo(0, 0) volta para o topo absoluto da página
         webView.getEngine().executeScript("window.scrollTo(0, 0);");
         LOGGER.info("Texto reiniciado para o topo.");
       }
@@ -224,5 +230,81 @@ public class BotoesController {
     });
     hotkeyThread.setDaemon(true);
     hotkeyThread.start();
+  }
+
+  @FXML
+  public void gerarConexaoRemota(ActionEvent evento) {
+    try {
+      if (remoteUtil == null) {
+        remoteUtil = new RemotoUtil();
+      }
+
+      String token = remoteUtil.gerarNovoToken();
+      String url = remoteUtil.getUrlControle();
+      WritableImage qrCode = remoteUtil.gerarQRCode(url);
+
+      remoteUtil.iniciarServidor(comando -> {
+        javafx.application.Platform.runLater(() -> {
+          LOGGER.info("Executando comando remoto: " + comando);
+          switch (comando) {
+            case "playpause" -> aoClicarPlayPause(null);
+            case "reiniciar" -> aoReiniciar(null);
+            case "mais" -> incrementarVelocidade(null);
+            case "menos" -> decrementarVelocidade(null);
+            default -> LOGGER.warning("Comando desconhecido: " + comando);
+          }
+        });
+      });
+
+      exibirPopupQRCode(qrCode, token, url);
+
+    } catch (Exception e) {
+      LOGGER.severe("Erro no controle remoto: " + e.getMessage());
+      e.printStackTrace();
+      javafx.application.Platform.runLater(() -> {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erro no Controle Remoto");
+        alert.setHeaderText("Não foi possível iniciar o controle remoto");
+        alert.setContentText(
+            "Detalhes: " + e.getMessage() + "\n\n" +
+                "Verifique se:\n" +
+                "• O PC está conectado ao Wi-Fi\n" +
+                "• A porta " + RemotoUtil.PORTA + " está disponível\n" +
+                "• O firewall permite conexões"
+        );
+        alert.showAndWait();
+      });
+    }
+  }
+
+  private void exibirPopupQRCode(WritableImage img, String token, String url) {
+    try {
+      String caminho = "/org/br/prompterjava/teleprompterjava/views/qrcode/qrcode.fxml";
+
+      FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
+
+      Parent root = loader.load();
+
+      QrcodeController controller = loader.getController();
+      controller.setDados(img, token, url,this::desligarServidorRemoto);
+
+      Stage popup = new Stage();
+      popup.setTitle("Controle Remoto - Teleprompter");
+      popup.setScene(new Scene(root));
+      popup.setAlwaysOnTop(true);
+      popup.setResizable(false);
+      popup.show();
+
+      LOGGER.info("Popup de QR Code exibido com sucesso.");
+    } catch (IOException e) {
+      e.printStackTrace();
+      LOGGER.severe("Erro ao carregar o FXML: " + e.getMessage());
+    }
+  }
+
+  public void desligarServidorRemoto() {
+    if (remoteUtil != null) {
+      remoteUtil.pararServidor();
+    }
   }
 }
