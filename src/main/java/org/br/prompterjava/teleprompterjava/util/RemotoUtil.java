@@ -7,6 +7,8 @@ import com.sun.net.httpserver.HttpServer;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import org.br.prompterjava.teleprompterjava.controller.RemoteController;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -22,9 +24,18 @@ public class RemotoUtil {
   private String tokenAcesso;
   private HttpServer server;
   public static final int PORTA = 9090;
-
+  private Runnable connectionHandler;
+  private RemoteController remoteController;
   public interface RemoteCommandHandler {
     void handle(String comando);
+  }
+
+  public void setOnConnectionHandler(Runnable handler) {
+    this.connectionHandler = handler;
+  }
+
+  public void setRemoteController(RemoteController controller) {
+    this.remoteController = controller;
   }
 
   public String gerarNovoToken() {
@@ -62,7 +73,9 @@ public class RemotoUtil {
       try {
         String html = carregarPaginaHTML();
         byte[] responseBytes = html.getBytes(StandardCharsets.UTF_8);
-
+        if (connectionHandler != null) {
+          connectionHandler.run();
+        }
         exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
         exchange.getResponseHeaders().set("Connection", "close");
 

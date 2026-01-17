@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 
 public class BotoesController {
   private static final Logger LOGGER = Logger.getLogger(BotoesController.class.getName());
-  private RemotoUtil remoteUtil = new RemotoUtil();
+  private RemoteController remoteController = new RemoteController();
   @FXML public Label lblValorVelocidade;
   @FXML public Circle circuloPulso;
   @FXML public ToggleButton btnPlayPause;
@@ -80,6 +80,9 @@ public class BotoesController {
 
   @FXML
   public void aoClicarPlayPause(ActionEvent evento) {
+    if (evento == null) {
+      btnPlayPause.setSelected(!btnPlayPause.isSelected());
+    }
     if (btnPlayPause.isSelected()) {
       btnPlayPause.setText("⏸");
       circuloPulso.setVisible(true);
@@ -234,71 +237,18 @@ public class BotoesController {
 
   @FXML
   public void gerarConexaoRemota(ActionEvent evento) {
-    try {
-      String token = remoteUtil.gerarNovoToken();
-      String url = remoteUtil.getUrlControle();
-      WritableImage qrCode = remoteUtil.gerarQRCode(url);
-
-      remoteUtil.iniciarServidor(comando -> {
-        javafx.application.Platform.runLater(() -> {
-          switch (comando) {
-            case "playpause" -> aoClicarPlayPause(null);
-            case "reiniciar" -> aoReiniciar(null);
-            case "mais"      -> incrementarVelocidade(null);
-            case "menos"     -> decrementarVelocidade(null);
-          }
-        });
-      });
-
-      exibirPopupQRCode(qrCode, token, url);
-
-    } catch (Exception e) {
-      LOGGER.severe("Erro no controle remoto: " + e.getMessage());
-      e.printStackTrace();
-      javafx.application.Platform.runLater(() -> {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erro no Controle Remoto");
-        alert.setHeaderText("Não foi possível iniciar o controle remoto");
-        alert.setContentText(
-            "Detalhes: " + e.getMessage() + "\n\n" +
-                "Verifique se:\n" +
-                "• O PC está conectado ao Wi-Fi\n" +
-                "• A porta " + RemotoUtil.PORTA + " está disponível\n" +
-                "• O firewall permite conexões"
-        );
-        alert.showAndWait();
-      });
-    }
-  }
-
-  private void exibirPopupQRCode(WritableImage img, String token, String url) {
-    try {
-      String caminho = "/org/br/prompterjava/teleprompterjava/views/qrcode/qrcode.fxml";
-
-      FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
-
-      Parent root = loader.load();
-
-      QrcodeController controller = loader.getController();
-      controller.setDados(img, token, url,this::desligarServidorRemoto);
-
-      Stage popup = new Stage();
-      popup.setTitle("Controle Remoto - Teleprompter");
-      popup.setScene(new Scene(root));
-      popup.setAlwaysOnTop(true);
-      popup.setResizable(false);
-      popup.show();
-
-      LOGGER.info("Popup de QR Code exibido com sucesso.");
-    } catch (IOException e) {
-      e.printStackTrace();
-      LOGGER.severe("Erro ao carregar o FXML: " + e.getMessage());
-    }
+    remoteController.iniciarConexao(
+        () -> aoClicarPlayPause(null),
+        () -> aoReiniciar(null),
+        () -> incrementarVelocidade(null),
+        () -> decrementarVelocidade(null),
+        this::desligarServidorRemoto
+    );
   }
 
   public void desligarServidorRemoto() {
-    if (remoteUtil != null) {
-      remoteUtil.pararServidor();
+    if (remoteController != null) {
+      remoteController.pararServico();
     }
   }
 }
