@@ -30,4 +30,13 @@ public class QrcodeController {
     Stage stage = (Stage) btnFechar.getScene().getWindow();
     stage.close();
   }
+
+  public void fecharJanela() {
+    javafx.application.Platform.runLater(() -> {
+      if (imgQrCode != null && imgQrCode.getScene() != null) {
+        Stage stage = (Stage) imgQrCode.getScene().getWindow();
+        if (stage != null) stage.close();
+      }
+    });
+  }
 }

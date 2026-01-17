@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Controle Remoto</title>
+  <style>
+    /* CSS PADRÃO PARA WEB (Equivalente ao seu -fx-) */
+    body {
+        margin: 0;
+        padding: 40px 20px;
+        /* No lugar de -fx-background-color linear-gradient */
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: white;
+        font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        box-sizing: border-box;
+        gap: 25px;
+    }
+
+    .header { text-align: center; }
+
+    .header-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #10b981; /* No lugar de -fx-text-fill */
+        display: block;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        color: #9ca3af;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    button {
+        padding: 20px;
+        border: none;
+        border-radius: 16px; /* No lugar de -fx-background-radius */
+        background-color: #2a2a3e;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        /* No lugar de -fx-effect dropshadow */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: transform 0.1s;
+        font-size: 16px;
+    }
+
+    /* No lugar de :pressed */
+    button:active {
+        transform: scale(0.96);
+    }
+
+    .btn-main {
+        grid-column: span 2;
+        background: linear-gradient(to bottom right, #10b981, #059669);
+        height: 110px;
+        font-size: 22px;
+    }
+
+    .btn-danger {
+        grid-column: span 2;
+        background: linear-gradient(to bottom right, #ef4444, #dc2626);
+        height: 80px;
+    }
+
+    .btn-speed {
+        background-color: #374151;
+        height: 80px;
+    }
+
+    .status-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 10px 20px;
+        border-radius: 8px;
+        margin-top: auto;
+    }
+
+    .circle {
+        width: 8px;
+        height: 8px;
+        background-color: #10b981;
+        border-radius: 50%;
+    }
+
+    .status-text {
+        color: #6b7280;
+        font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <span class="header-title">📱 Teleprompter Remoto</span>
+  <span class="subtitle">Controle via Wi-Fi</span>
+</div>
+
+<div class="grid">
+  <button class="btn-main" onclick="enviar('playpause')">▶️ PLAY / PAUSE</button>
+  <button class="btn-speed" onclick="enviar('menos')">➖ LENTO</button>
+  <button class="btn-speed" onclick="enviar('mais')">➕ RÁPIDO</button>
+  <button class="btn-danger" onclick="enviar('reiniciar')">🔄 REINICIAR</button>
+</div>
+
+<div class="status-container">
+  <div class="circle"></div>
+  <span class="status-text">Conectado ao Teleprompter</span>
+</div>
+
+<script>
+  function enviar(cmd) {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+
+    fetch(`/control?token=${token}&cmd=${cmd}`)
+      .then(r => console.log('Comando enviado:', cmd))
+      .catch(e => alert('Erro de conexão!'));
+  }
+</script>
+</body>
+</html>

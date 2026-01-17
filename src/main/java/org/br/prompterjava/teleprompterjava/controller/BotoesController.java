@@ -235,23 +235,17 @@ public class BotoesController {
   @FXML
   public void gerarConexaoRemota(ActionEvent evento) {
     try {
-      if (remoteUtil == null) {
-        remoteUtil = new RemotoUtil();
-      }
-
       String token = remoteUtil.gerarNovoToken();
       String url = remoteUtil.getUrlControle();
       WritableImage qrCode = remoteUtil.gerarQRCode(url);
 
       remoteUtil.iniciarServidor(comando -> {
         javafx.application.Platform.runLater(() -> {
-          LOGGER.info("Executando comando remoto: " + comando);
           switch (comando) {
             case "playpause" -> aoClicarPlayPause(null);
             case "reiniciar" -> aoReiniciar(null);
-            case "mais" -> incrementarVelocidade(null);
-            case "menos" -> decrementarVelocidade(null);
-            default -> LOGGER.warning("Comando desconhecido: " + comando);
+            case "mais"      -> incrementarVelocidade(null);
+            case "menos"     -> decrementarVelocidade(null);
           }
         });
       });
