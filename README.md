@@ -44,7 +44,7 @@ Permite que os cliques do mouse "atravessem" a janela.
 Captura teclas de atalho (como Scroll Lock) mesmo se o app não estiver em foco.
 
 
-## 🚀 Download e Instalação
+## 🚀 Download do Exe.
 
 Você pode baixar a versão mais recente e portátil do TelePrompter (não precisa de instalação):
 
